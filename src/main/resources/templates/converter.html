@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency converter</title>
+    <style>
+        {
+margin: 0;
+padding: 0;
+font-family: monospace;
+box-sizing: border-box;
+}
+body {
+display: flex;
+min-height: 100vh;
+background: #fff;
+justify-content: center;
+align-items: center;
+background: linear-gradient(to bottom left, #d8c3ff 15%, #fff 60%, #d8c3ff );
+}
+
+.wrapper {
+max-width: 1920px;
+display: flex;
+width: 80%;
+height: 400px;
+justify-content: center;
+align-items: center;
+border: 1px solid rgba(0, 0, 0, 0.3);
+background-color: #fff;
+backdrop-filter: blur(15px);
+box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.3);
+border-radius: 15px;
+}
+.containerLeft, .containerRight, .center{
+display: flex;
+position: absolute;
+
+}
+.center{
+margin: 20px;
+}
+.containerRight {
+right: 0;
+padding: 50px;
+
+}
+.containerLeft {
+left: 0;
+padding: 50px;
+}
+.headingLeft {
+position: absolute;
+top: 30px;
+left: 50px;
+}
+.headingRight {
+position: absolute;
+top: 30px;
+right: 165px;
+}
+input {
+text-decoration: none;
+width: 300px;
+height: 60px;
+font-size: 23px;
+margin-bottom: 30px;
+background-color: #ebebeb;
+border: none;
+text-align: center;
+}
+input:focus {
+outline: none;
+text-align: center;
+}
+label {
+font-size: 25px;
+}
+
+select {
+text-align: center;
+font-family: monospace;
+font-size: 19px;
+width: 100px;
+height: 60px;
+color: #000;
+display: inline-block;
+white-space: pre;
+background-color: #ebebeb;
+cursor: default;
+border-width: 1px;
+border-style: solid;
+border-color: #ebebeb;
+border-left: 2px solid #fff;
+}
+select:focus {
+outline: none;
+}
+button {
+position: relative;
+margin: 0;
+display: flex;
+text-align: center;
+background-color: #fff;
+border: none;
+width: 50px;
+height: 50px;
+top: -15px;
+}
+.iconSwap {
+position: absolute;
+display: flex;
+
+
+}
+button:hover {
+
+cursor: pointer;
+background-color: #ebebeb;
+}
+@media screen and (max-width: 1200px) {
+
+.wrapper {
+width: 80%;
+height: 400px;
+}
+
+input {
+width: 200px;
+height: 50px;
+}
+select {
+width: 80px;
+height: 50px;
+}
+button {
+width: 50px;
+height: 50px;
+}
+.iconSwap {
+width: 50px;
+height: 50px;
+}
+
+}
+@media screen and (max-width: 1000px){
+.wrapper {
+width: 80%;
+height: 300px;
+}
+
+input {
+width: 150px;
+height: 40px;
+}
+select {
+width: 60px;
+height: 40px;
+}
+button {
+width: 40px;
+height: 40px;
+}
+.iconSwap {
+width: 40px;
+height: 40px;
+bottom: 5px;
+}
+
+}
+@media screen and (max-width:768px){
+.wrapper {
+width: 95%;
+height: 250px;
+}
+
+input {
+width: 110px;
+height: 30px;
+}
+select {
+width: 50px;
+height: 30px;
+font-size: 16px;
+}
+button {
+width: 30px;
+height: 30px;
+}
+.iconSwap {
+width: 30px;
+height: 30px;
+bottom: 10px;
+}
+
+}
+@media screen and (max-width: 480px){
+.wrapper {
+width: 95%;
+height: 250px;
+}
+
+input {
+width: 90px;
+height: 20px;
+}
+select {
+width: 30px;
+height: 20px;
+font-size: 12px;
+}
+button {
+width: 20px;
+height: 20px;
+}
+.iconSwap {
+width: 20px;
+height: 20px;
+bottom: 15px;
+}
+
+}
+
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <form  method="post" th:object="${currencyRate}">
+    <h1 class="headingLeft"></h1>
+    <div class="containerLeft">
+        <input type="text" id="currInput" th:field="*{amount}">
+        <select name="currency" id="inputCurrencySelector" th:field="*{firstCurrency}">
+            <option value="RUB">RUB</option>
+            <option th:each="valute : ${valutes}" th:value = "${valute}" th:text="${valute}" ></option>
+        </select>
+    </div>
+    <div class="center">
+        <button class="swapper" id="swapper" style="height: 50px;" >
+            <img th:src="@{/images/swap.jpg}"/>
+        </button>
+    </div>
+    <h1 class="headingRight"></h1>
+    <div class="containerRight">
+        <input type="text" id="currOutput" th:field="*{value}">
+        <select name="currency" id="outputCurrencySelector" th:field="*{secondCurrency}">
+            <option value="RUB">RUB</option>
+            <option th:each="valute : ${valutes}" th:value = "${valute}" th:text="${valute}" ></option>
+        </select>
+    </div>
+    </form>
+</div>
+</body>
+</html>
